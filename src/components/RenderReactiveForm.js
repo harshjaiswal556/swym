@@ -35,6 +35,7 @@ function RenderReactiveForm({ model, onSubmitted }) {
 
     return (
         <div className="main-form mt-1">
+            {console.log(fillableModel)}
             {fillableModel.map((field, index) => ["Name", "number"].indexOf(field.type) > -1
                 ? (
                     <div key={index} className="input">
@@ -50,7 +51,7 @@ function RenderReactiveForm({ model, onSubmitted }) {
                     <MultiOptionField key={index} fieldModel={field} onSelected={res => updateArrOfObjState(setFillableModel, fillableModel, index, "value", res)} />
                 ) : field.type === "file" ? (
                     <FileField key={index} fieldModel={field} onCompleted={fileName => updateArrOfObjState(setFillableModel, fillableModel, index, "value", fileName)} />
-                ) : <p key={index}>Unknown field type</p>)}
+                ) : <p key={index}>Unknown field type {field.type} </p>)}
             {err && <p className="err mb-1">{err}</p>}
             <button className="btn" onClick={handleSubmit}>{loading ? <span className="spinner white"></span> : <span>submit</span>}</button>
         </div>
