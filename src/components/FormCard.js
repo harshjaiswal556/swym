@@ -17,7 +17,7 @@ function FormCard({ form, onDelete }) {
         setLoading(false)
         onDelete(form.id)
     }
-    console.log(form.id, form.uid);
+    // console.log(form.id, form.uid);
     return (
         <div className="card">
             <h2 className="title mb-1">

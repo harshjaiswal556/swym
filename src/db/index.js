@@ -27,21 +27,17 @@ export const getForms = async (uid) => {
         uid: uid
     })
 
-    console.log(docs);
+    // console.log(docs);
     docs = docs.docs
     let forms = docs.map(doc => ({ ...doc.data(), id: doc.id }))
     return forms
 }
 
 export const getForm = async (id) => {
-    // let docs = await firestore.collection("forms").get(ops)
-    let docs = await firestore.collection("forms").get({ id: id })
-    let doc = docs.docs[0]
-    // console.log("docs" + docs)
-    // let doc = docs.map(doc => ({ ...doc.data(), id: doc.id }))
-    doc = { ...doc.data(), id: doc.id }
-    console.log(doc);
-    return doc
+    let allforms = await firestore.collection("forms").get()
+    allforms = allforms.docs
+    const formwewant = allforms.map(form => ({ ...form.data(), id: form.id })).filter(form => form.id === id)[0];
+    return formwewant
 }
 
 export const deleteForm = async formId => {
@@ -64,9 +60,10 @@ export const submitForm = (submission, formId) => firestore.collection("submissi
 })
 
 export const getSubmissions = async opts => {
+    console.log(opts);
     let docs = await firestore.collection("submissions").get(opts)
     docs = docs.docs
-    let submissions = docs.map(doc => ({ ...doc.data(), id: doc.id }))
+    let submissions = docs.map(doc => ({ ...doc.data(), id: doc.id })).filter(doc => doc.formId === opts.formID)
     console.log(submissions);
     return submissions
 }
