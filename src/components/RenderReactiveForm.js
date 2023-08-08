@@ -47,10 +47,10 @@ function RenderReactiveForm({ model, onSubmitted }) {
                         <label>{field.title}{field.required && <span className="err">*</span>}</label>
                         <textarea onChange={e => updateArrOfObjState(setFillableModel, fillableModel, index, "value", e.target.value)}></textarea>
                     </div>
-                ) : field.type === "multioption-singleanswer" || field.type === "multioption-multianswer" ? (
-                    <MultiOptionField key={index} fieldModel={field} onSelected={res => updateArrOfObjState(setFillableModel, fillableModel, index, "value", res)} />
-                ) : field.type === "file" ? (
-                    <FileField key={index} fieldModel={field} onCompleted={fileName => updateArrOfObjState(setFillableModel, fillableModel, index, "value", fileName)} />
+                    // ) : field.type === "multioption-singleanswer" || field.type === "multioption-multianswer" ? (
+                    //     <MultiOptionField key={index} fieldModel={field} onSelected={res => updateArrOfObjState(setFillableModel, fillableModel, index, "value", res)} />
+                    // ) : field.type === "file" ? (
+                    //     <FileField key={index} fieldModel={field} onCompleted={fileName => updateArrOfObjState(setFillableModel, fillableModel, index, "value", fileName)} />
                 ) : <p key={index}>Unknown field type {field.type} </p>)}
             {err && <p className="err mb-1">{err}</p>}
             <button className="btn" onClick={handleSubmit}>{loading ? <span className="spinner white"></span> : <span>submit</span>}</button>

@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { getDateFromMillis } from '../utils'
@@ -6,18 +6,18 @@ import { deleteForm } from "../db"
 
 import RenderPlainForm from "../components/RenderPlainForm"
 
-function FormCard({ form, onDelete }){
+function FormCard({ form, onDelete }) {
     const [preview, setPreview] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const handleDelete = async () => {
-        if(!window.confirm("Are you sure you want to delete this form?")) return
+        if (!window.confirm("Are you sure you want to delete this form?")) return
         setLoading(true)
         await deleteForm(form.id)
         setLoading(false)
         onDelete(form.id)
     }
-
+    console.log(form.id, form.uid);
     return (
         <div className="card">
             <h2 className="title mb-1">
@@ -28,7 +28,7 @@ function FormCard({ form, onDelete }){
             <p className="card-nav">
                 <span className="nav-item" onClick={() => setPreview(true)}>preview</span>
                 <Link to={"/submissions/" + form.id} className="nav-item">submissions</Link>
-                <span className="nav-item" onClick={handleDelete}>{ loading ? <span className="spinner red"></span> : <span>delete</span>}</span>
+                <span className="nav-item" onClick={handleDelete}>{loading ? <span className="spinner red"></span> : <span>delete</span>}</span>
             </p>
             {preview && (
                 <div className="modal">

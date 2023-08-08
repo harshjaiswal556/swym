@@ -56,6 +56,7 @@ function Create() {
 
         setLoading(true)
         try {
+            console.log(formModel);
             await saveForm(formModel)
             setLoading(false)
             history.push("/forms")

@@ -21,20 +21,26 @@ export const createForm = formModel => {
     return firestore.collection("forms").add({ ...formModel, uid: user.uid })
 }
 
-export const getForms = async () => {
+export const getForms = async (uid) => {
     const user = JSON.parse(localStorage.getItem("gfc-user"))
     let docs = await firestore.collection("forms").get({
-        uid: user.uid
+        uid: uid
     })
+
+    console.log(docs);
     docs = docs.docs
     let forms = docs.map(doc => ({ ...doc.data(), id: doc.id }))
     return forms
 }
 
-export const getForm = async ops => {
-    let docs = await firestore.collection("forms").get(ops)
+export const getForm = async (id) => {
+    // let docs = await firestore.collection("forms").get(ops)
+    let docs = await firestore.collection("forms").get({ id: id })
     let doc = docs.docs[0]
+    // console.log("docs" + docs)
+    // let doc = docs.map(doc => ({ ...doc.data(), id: doc.id }))
     doc = { ...doc.data(), id: doc.id }
+    console.log(doc);
     return doc
 }
 
